@@ -1,10 +1,11 @@
+package orangewebsite;
+
 import OrangePages.OrangePage;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import orangewebsite.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,12 @@ public class OrangeStepefs extends TestBase {
         driver = TestBase.getWebDriver();
         orange = new OrangePage(driver);
     }
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 
     @Given("open orangeHRM website")
     public void openOrangeHRMWebsite() throws InterruptedException {
@@ -35,7 +42,7 @@ public class OrangeStepefs extends TestBase {
 
     }
 
-    @And("click on login button")
+    @Then("click on login button")
     public void clickOnLoginButton() {
         orange.clickOnLoginButton();
 
@@ -48,7 +55,7 @@ public class OrangeStepefs extends TestBase {
         Assert.assertTrue(orange.getDashboardText().isDisplayed());
     }
 
-    @And("write password {string}")
+    @Then("write password {string}")
     public void writePassword(String password) {
         orange.enterPasswrod(password);
     }
@@ -65,7 +72,7 @@ public class OrangeStepefs extends TestBase {
 
     }
 
-    @And("it will navigate to user managment page")
+    @Then("it will navigate to user managment page")
     public void itWillNavigateToUserManagmentPage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(new By.ByXPath("//h6[contains(@class, 'oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-level')]")));
@@ -73,7 +80,7 @@ public class OrangeStepefs extends TestBase {
 
     }
 
-    @And("I check the number of records")
+    @Then("I check the number of records")
     public void iCheckTheNumberOfRecords() {
         WebDriverWait wait = new WebDriverWait(driver,  Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(orange.getNumberOfRecords()));
@@ -81,7 +88,7 @@ public class OrangeStepefs extends TestBase {
         System.out.println("Records Found: " + recordsText.trim());
 
     }
-    @And("click on Add button")
+    @Then("click on Add button")
     public void clickOnAddButton() {
         orange.clickOnAddButton();
     }
@@ -104,7 +111,7 @@ public class OrangeStepefs extends TestBase {
             }}
     }
 
-    @And("Type the Employee name {string}")
+    @Then("Type the Employee name {string}")
     public void typeTheEmployeeName(String employeeName){
         orange.EmployeeNameText(employeeName +" ");
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -114,7 +121,7 @@ public class OrangeStepefs extends TestBase {
 
     }
 
-    @And("click on status dropdown list and choose active")
+    @Then("click on status dropdown list and choose active")
     public void clickOnStatusDropdownListAndChooseActive() {
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait1.until(ExpectedConditions.visibilityOfElementLocated(new By.ByXPath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div/div[2]/div/div/div[2]/i")));
@@ -131,17 +138,17 @@ public class OrangeStepefs extends TestBase {
 
     }
 
-    @And("Type username {string}")
+    @Then("Type username {string}")
     public void typeUsername(String usernameText) {
         orange.UserNameText(usernameText);
     }
 
-    @And("Type the password {string}")
+    @Then("Type the password {string}")
     public void typeThePassword(String passwordText) {
         orange.passwordText(passwordText);
     }
 
-    @And("Type confirm password {string}")
+    @Then("Type confirm password {string}")
     public void typeConfirmPassword(String confirmPasswordText) {
         orange.confirmPassworText(confirmPasswordText);
     }
@@ -152,20 +159,20 @@ public class OrangeStepefs extends TestBase {
         orange.submitButton();
     }
 
-    @And("Type in search bar the new added username{string}")
+    @Then("Type in search bar the new added username{string}")
     public void typeInSearchBarTheNewAddedUsername(String usernameSearch) {
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait1.until(ExpectedConditions.visibilityOfElementLocated(new By.ByXPath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/input")));
         orange.UsernameSearchbar(usernameSearch);
     }
 
-    @And("click on search button")
+    @Then("click on search button")
     public void clickOnSearchButton() {
         orange.clickOnSearchButon();
 
     }
 
-    @And("click on delete icon")
+    @Then("click on delete icon")
     public void clickOnDeleteIcon() {
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait1.until(ExpectedConditions.visibilityOfElementLocated(new By.ByXPath("//button[contains(@class, 'oxd-icon-button') and contains(@class, 'oxd-table-cell-action-space')]")));
@@ -173,15 +180,16 @@ public class OrangeStepefs extends TestBase {
     }
 
 
-    @And("click on delete button in popup screen")
+    @Then("click on delete button in popup screen")
     public void clickOnDeleteButtonInPopupScreen() throws InterruptedException {
         orange.deleteButtonPopUp();
         Thread.sleep(5000);
     }
 
-    @And("click on reset button")
+    @Then("click on reset button")
     public void clickOnResetButton() throws InterruptedException {
         orange.clickOnResetButton();
         Thread.sleep(5000);
     }
+
 }

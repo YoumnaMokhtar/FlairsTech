@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
     @CucumberOptions(
             features = "src/test/java/orangewebsite/login.feature",
-            glue = {"OraneTestCases"},
+            glue = {"orangewebsite"},
             plugin = {"pretty", "html:target/cucumber-reports/report.html"}
     )
 
